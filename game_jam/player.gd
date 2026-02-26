@@ -1,22 +1,26 @@
 extends CharacterBody2D
 
-const speed = 100.0
-const jump_force = -250.0
-const roll_speed = 300.0  # Reduced from 9000 (which is teleport-speed)
+const speed = 200.0
+const jump_force = -300.0
+const roll_speed = 500.0  # Reduced from 9000 (which is teleport-speed)
+
 const roll_decel = 500.0 # How fast the roll slows down
 
-@onready var animation: AnimatedSprite2D = $animation
-@onready var healthbar = $Healthbar
+var gravity = 800
 
+@onready var animation: AnimatedSprite2D = $animation
+@onready var healthbar: HealthBar = $CanvasLayer/Healthbar
 
 var is_rolling := false
 
-func _ready():
-	var health = 100
+@export var health: int
 
+func _ready():
+	healthbar.init_health(health)
+	
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
-		velocity += get_gravity() * delta
+		velocity.y += gravity * delta
 
 	var direction := Input.get_axis("move_left", "move_right")
 
@@ -48,3 +52,6 @@ func _physics_process(delta: float) -> void:
 		velocity.y = jump_force
 
 	move_and_slide()
+
+func _on_healthbar_die() -> void:
+	self.queue_free()
