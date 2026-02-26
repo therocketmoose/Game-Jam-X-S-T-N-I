@@ -81,8 +81,7 @@ script = ExtResource("1_f7g2b")
 
 [node name="player" parent="." unique_id=1920163338 instance=ExtResource("1_80nbo")]
 z_index = 5
-
-[node name="Camera2D" type="Camera2D" parent="player" unique_id=27406464]
+health = 100
 
 [node name="TileMap" type="TileMap" parent="." unique_id=1008420883]
 tile_set = SubResource("TileSet_4ptq8")
