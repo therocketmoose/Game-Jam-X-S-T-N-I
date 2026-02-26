@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://oy67rn0cumj3"]
 
 [ext_resource type="Script" uid="uid://b281j0pecvres" path="res://player.gd" id="1_4flbx"]
-[ext_resource type="PackedScene" uid="uid://c6rra004grdwx" path="res://sword_gun.tscn" id="2_onrkg"]
 [ext_resource type="Texture2D" uid="uid://brq1ck6lblecq" path="res://Art/SpriteSheets/rex.png" id="3_hqtel"]
+[ext_resource type="PackedScene" uid="uid://c7jprhbeckqbk" path="res://Components/Health/Damage indicators/Healthbar.tscn" id="4_hqtel"]
 [ext_resource type="PackedScene" uid="uid://84m8sx32lfct" path="res://Interactions/main/interactor.tscn" id="4_sweqy"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hqtel"]
@@ -88,9 +88,6 @@ size = Vector2(12, 16)
 [node name="player" type="CharacterBody2D" unique_id=1920163338]
 script = ExtResource("1_4flbx")
 
-[node name="SwordGun" parent="." unique_id=1686054373 instance=ExtResource("2_onrkg")]
-position = Vector2(29, -39)
-
 [node name="animation" type="AnimatedSprite2D" parent="." unique_id=188234750]
 sprite_frames = SubResource("SpriteFrames_n7ghd")
 animation = &"idle"
@@ -103,3 +100,18 @@ debug_color = Color(0.48492563, 0.5863838, 0, 0.41960785)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=600691164]
 shape = SubResource("RectangleShape2D_onrkg")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1117403335]
+
+[node name="Healthbar" parent="CanvasLayer" unique_id=616041222 instance=ExtResource("4_hqtel")]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -2.0
+offset_right = 32.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
