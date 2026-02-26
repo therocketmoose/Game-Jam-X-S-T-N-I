@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://b0v8iryu7kv4r"]
 
 [ext_resource type="PackedScene" uid="uid://oy67rn0cumj3" path="res://player.tscn" id="1_80nbo"]
+[ext_resource type="PackedScene" uid="uid://c7jprhbeckqbk" path="res://Components/Health/Damage indicators/Healthbar.tscn" id="2_qxrlw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_80nbo"]
 size = Vector2(553, 20)
@@ -17,3 +18,18 @@ position = Vector2(-1, 210)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1619209636]
 position = Vector2(-0.5, 0)
 shape = SubResource("RectangleShape2D_80nbo")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=2110821923]
+
+[node name="Control" type="Control" parent="CanvasLayer" unique_id=1083701865]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+size_flags_horizontal = 0
+
+[node name="Healthbar" parent="CanvasLayer/Control" unique_id=616041222 instance=ExtResource("2_qxrlw")]
+layout_mode = 0
+offset_top = 23.0
+offset_right = 60.0
+offset_bottom = 27.0
