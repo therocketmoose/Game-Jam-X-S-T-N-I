@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bl1my6ebthenr"]
 
-[ext_resource type="PackedScene" path="res://player.tscn" id="1_80nbo"]
+[ext_resource type="PackedScene" uid="uid://coguswmimkhxy" path="res://player.tscn" id="1_80nbo"]
+[ext_resource type="Script" uid="uid://b7p40o148yleo" path="res://manager.gd" id="1_f7g2b"]
 [ext_resource type="Texture2D" uid="uid://co6wd8sxyrwbj" path="res://Art/Tile Sets/wasteland_1.png" id="2_1c2mv"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_f7g2b"]
@@ -37,10 +38,11 @@ physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_f7g2b")
 
 [node name="game" type="Node2D" unique_id=692819522]
+script = ExtResource("1_f7g2b")
 
 [node name="player" parent="." unique_id=1920163338 instance=ExtResource("1_80nbo")]
 
-[node name="Camera2D" type="Camera2D" parent="player" unique_id=1833042990]
+[node name="Camera2D" type="Camera2D" parent="player" unique_id=27406464]
 
 [node name="TileMap" type="TileMap" parent="." unique_id=1008420883]
 tile_set = SubResource("TileSet_4ptq8")
