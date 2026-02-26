@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://oy67rn0cumj3"]
+
+[ext_resource type="Script" uid="uid://b281j0pecvres" path="res://player.gd" id="1_4flbx"]
+[ext_resource type="PackedScene" uid="uid://c6rra004grdwx" path="res://sword_gun.tscn" id="2_onrkg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_onrkg"]
+size = Vector2(20, 88)
+
+[node name="player" type="CharacterBody2D" unique_id=1920163338]
+script = ExtResource("1_4flbx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=600691164]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_onrkg")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=376057923]
+
+[node name="SwordGun" parent="." unique_id=1686054373 instance=ExtResource("2_onrkg")]
+position = Vector2(29, -39)
