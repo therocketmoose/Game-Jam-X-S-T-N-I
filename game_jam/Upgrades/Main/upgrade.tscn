@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://byufvkcxp6ts3"]
+
+[ext_resource type="Script" uid="uid://d4l7r8x337tjw" path="res://Upgrades/Main/upgrade.gd" id="1_hj5gr"]
+[ext_resource type="PackedScene" uid="uid://u25g1qos4bvw" path="res://Interactions/main/interactable.tscn" id="2_50jy6"]
+[ext_resource type="Resource" uid="uid://b1dbcyybk5bql" path="res://Interactions/interactableTemplates/template.tres" id="3_hj5gr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_moly5"]
+
+[node name="Upgrade" type="StaticBody2D" unique_id=1731055815]
+script = ExtResource("1_hj5gr")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1888789011]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=418887166]
+shape = SubResource("RectangleShape2D_moly5")
+
+[node name="Interactable" parent="." unique_id=668797290 instance=ExtResource("2_50jy6")]
+interaction_resources = ExtResource("3_hj5gr")
+selected_mode = "txt"
+
+[connection signal="interactedWith" from="Interactable" to="." method="_on_interacted_with"]
