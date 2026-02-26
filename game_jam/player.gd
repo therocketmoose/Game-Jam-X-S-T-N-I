@@ -1,8 +1,8 @@
 extends CharacterBody2D
 
-const speed = 200.0
-const jump_force = -400.0
-const roll_speed = 500.0  # Reduced from 9000 (which is teleport-speed)
+const speed = 100.0
+const jump_force = -250.0
+const roll_speed = 300.0  # Reduced from 9000 (which is teleport-speed)
 const roll_decel = 500.0 # How fast the roll slows down
 
 @onready var animation: AnimatedSprite2D = $animation
