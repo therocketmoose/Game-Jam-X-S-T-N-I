@@ -6,8 +6,13 @@ const roll_speed = 500.0  # Reduced from 9000 (which is teleport-speed)
 const roll_decel = 500.0 # How fast the roll slows down
 
 @onready var animation: AnimatedSprite2D = $animation
+@onready var healthbar = $Healthbar
+
 
 var is_rolling := false
+
+func _ready():
+	var health = 100
 
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
