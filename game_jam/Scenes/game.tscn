@@ -1,9 +1,26 @@
 [gd_scene format=3 uid="uid://b0v8iryu7kv4r"]
 
 [ext_resource type="PackedScene" uid="uid://oy67rn0cumj3" path="res://player.tscn" id="1_80nbo"]
+[ext_resource type="Texture2D" uid="uid://co6wd8sxyrwbj" path="res://Art/Tile Sets/wasteland_1.png" id="2_qxrlw"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_80nbo"]
-size = Vector2(553, 20)
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wrm1d"]
+texture = ExtResource("2_qxrlw")
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_ebmjs"]
+sources/0 = SubResource("TileSetAtlasSource_wrm1d")
 
 [node name="game" type="Node2D" unique_id=692819522]
 
@@ -11,9 +28,6 @@ size = Vector2(553, 20)
 
 [node name="Camera2D" type="Camera2D" parent="player" unique_id=1817878792]
 
-[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=417546466]
-position = Vector2(-1, 210)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1619209636]
-position = Vector2(-0.5, 0)
-shape = SubResource("RectangleShape2D_80nbo")
+[node name="TileMap" type="TileMap" parent="." unique_id=849586260]
+tile_set = SubResource("TileSet_ebmjs")
+format = 2
