@@ -1,9 +1,9 @@
 extends CharacterBody2D
 
-const speed = 300.0
+const speed = 200.0
 const jump_force = -400.0
-const roll_speed = 900.0  # Reduced from 9000 (which is teleport-speed)
-const roll_decel = 2000.0 # How fast the roll slows down
+const roll_speed = 500.0  # Reduced from 9000 (which is teleport-speed)
+const roll_decel = 500.0 # How fast the roll slows down
 
 @onready var animation: AnimatedSprite2D = $animation
 
@@ -38,7 +38,7 @@ func _physics_process(delta: float) -> void:
 		else:
 			velocity.x = move_toward(velocity.x, 0, speed)
 			animation.play("idle")
-
+	
 	if Input.is_action_just_pressed("jump") and is_on_floor() and not is_rolling:
 		velocity.y = jump_force
 
