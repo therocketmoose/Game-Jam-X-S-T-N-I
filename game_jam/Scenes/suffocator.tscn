@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://k1utc1opch0t"]
+
+[ext_resource type="Script" uid="uid://gegydegiev2r" path="res://suffocator.gd" id="1_76dc4"]
+[ext_resource type="Texture2D" uid="uid://barq67eed08is" path="res://icon.svg" id="2_onvid"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_spvos"]
+size = Vector2(113, 115)
+
+[node name="Suffocator" type="CharacterBody2D" unique_id=2137850836]
+script = ExtResource("1_76dc4")
+
+[node name="Breath Timer" type="Timer" parent="." unique_id=1531119063]
+
+[node name="Burst Timer" type="Timer" parent="." unique_id=1501954591]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=290003285]
+position = Vector2(-0.5, 0.5)
+shape = SubResource("RectangleShape2D_spvos")
+
+[node name="Sprite2D" type="Sprite2D" parent="CollisionShape2D" unique_id=21606600]
+position = Vector2(0.5, -0.5)
+texture = ExtResource("2_onvid")
