@@ -3,6 +3,7 @@ extends CharacterBody2D
 const speed = 200.0
 const jump_force = -300.0
 const roll_speed = 500.0  # Reduced from 9000 (which is teleport-speed)
+
 const roll_decel = 500.0 # How fast the roll slows down
 
 var gravity = 800
