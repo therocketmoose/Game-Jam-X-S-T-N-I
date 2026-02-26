@@ -2,18 +2,104 @@
 
 [ext_resource type="Script" uid="uid://b281j0pecvres" path="res://player.gd" id="1_4flbx"]
 [ext_resource type="PackedScene" uid="uid://c6rra004grdwx" path="res://sword_gun.tscn" id="2_onrkg"]
+[ext_resource type="Texture2D" uid="uid://brq1ck6lblecq" path="res://Art/SpriteSheets/rex.png" id="3_hqtel"]
+[ext_resource type="PackedScene" uid="uid://84m8sx32lfct" path="res://Interactions/main/interactor.tscn" id="4_sweqy"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hqtel"]
+atlas = ExtResource("3_hqtel")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sweqy"]
+atlas = ExtResource("3_hqtel")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n7ghd"]
+atlas = ExtResource("3_hqtel")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nvl01"]
+atlas = ExtResource("3_hqtel")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2hs0m"]
+atlas = ExtResource("3_hqtel")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1jxqw"]
+atlas = ExtResource("3_hqtel")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dw050"]
+atlas = ExtResource("3_hqtel")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b26j0"]
+atlas = ExtResource("3_hqtel")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_n7ghd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hqtel")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sweqy")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n7ghd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nvl01")
+}],
+"loop": true,
+"name": &"roll",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2hs0m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1jxqw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dw050")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b26j0")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hqtel"]
+radius = 11.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_onrkg"]
-size = Vector2(20, 88)
+size = Vector2(12, 16)
 
 [node name="player" type="CharacterBody2D" unique_id=1920163338]
 script = ExtResource("1_4flbx")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=600691164]
-position = Vector2(0, 1)
-shape = SubResource("RectangleShape2D_onrkg")
-
-[node name="Camera2D" type="Camera2D" parent="." unique_id=376057923]
-
 [node name="SwordGun" parent="." unique_id=1686054373 instance=ExtResource("2_onrkg")]
 position = Vector2(29, -39)
+
+[node name="animation" type="AnimatedSprite2D" parent="." unique_id=188234750]
+sprite_frames = SubResource("SpriteFrames_n7ghd")
+animation = &"idle"
+
+[node name="Interactor" parent="." unique_id=791728671 instance=ExtResource("4_sweqy")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Interactor" unique_id=1297824820]
+shape = SubResource("CircleShape2D_hqtel")
+debug_color = Color(0.48492563, 0.5863838, 0, 0.41960785)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=600691164]
+shape = SubResource("RectangleShape2D_onrkg")

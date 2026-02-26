@@ -15,6 +15,14 @@ run/main_scene="uid://b0v8iryu7kv4r"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
+[display]
+
+window/size/viewport_width=360
+window/size/viewport_height=180
+window/size/mode=3
+window/stretch/mode="viewport"
+window/stretch/scale_mode="integer"
+
 [global_group]
 
 Enemy=""
@@ -53,4 +61,5 @@ left_click={
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 rendering_device/driver.windows="d3d12"

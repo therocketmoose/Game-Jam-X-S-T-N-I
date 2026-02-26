@@ -9,6 +9,8 @@ size = Vector2(553, 20)
 
 [node name="player" parent="." unique_id=1920163338 instance=ExtResource("1_80nbo")]
 
+[node name="Camera2D" type="Camera2D" parent="player" unique_id=1817878792]
+
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=417546466]
 position = Vector2(-1, 210)
 

@@ -1,36 +1,45 @@
 extends CharacterBody2D
 
-const SPEED = 300.0
-const JUMP_VELOCITY = -400.0
-const SLIDE_SPEED = 9000.0
-const SLIDE_DECEL = -2500.0
+const speed = 300.0
+const jump_force = -400.0
+const roll_speed = 900.0  # Reduced from 9000 (which is teleport-speed)
+const roll_decel = 2000.0 # How fast the roll slows down
 
-func _ready() -> void:
-	pass
-	
-func attack():
-	if Input.is_action_just_pressed("left_click"):
-		pass
+@onready var animation: AnimatedSprite2D = $animation
+
+var is_rolling := false
 
 func _physics_process(delta: float) -> void:
-	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 
-	# Handle jump.
-	if Input.is_action_just_pressed("jump") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
-
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
 	var direction := Input.get_axis("move_left", "move_right")
-	if direction:
-		velocity.x = direction * SPEED
-		if Input.is_action_just_pressed("dodge") and is_on_floor():
-			velocity.x = direction * SLIDE_SPEED
-	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-	
+
+	if Input.is_action_just_pressed("dodge") and is_on_floor() and not is_rolling:
+		if direction != 0:
+			is_rolling = true
+			velocity.x = direction * roll_speed
+			animation.play("roll") # Make sure you have a "roll" animation!
+
+	# 3. Movement Logic
+	if is_rolling:
+		# Decelerate the roll until it hits normal speed
+		velocity.x = move_toward(velocity.x, 0, roll_decel * delta)
 		
+		# End roll when slow enough
+		if abs(velocity.x) <= speed:
+			is_rolling = false
+	else:
+		# Standard Movement
+		if direction:
+			velocity.x = direction * speed
+			animation.flip_h = direction < 0
+			animation.play("walk")
+		else:
+			velocity.x = move_toward(velocity.x, 0, speed)
+			animation.play("idle")
+
+	if Input.is_action_just_pressed("jump") and is_on_floor() and not is_rolling:
+		velocity.y = jump_force
 
 	move_and_slide()
