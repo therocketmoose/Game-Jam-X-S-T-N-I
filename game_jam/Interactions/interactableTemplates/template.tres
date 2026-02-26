@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Interaction_Resources" format=3 uid="uid://b1dbcyybk5bql"]
+
+[ext_resource type="Script" uid="uid://cxkyhqvh4ap73" path="res://Interactions/scripts/interactable_resources.gd" id="1_4xtlw"]
+[ext_resource type="Texture2D" uid="uid://bxy6742b6kkho" path="res://icon.svg" id="2_atm8n"]
+
+[resource]
+script = ExtResource("1_4xtlw")
+texture = ExtResource("2_atm8n")
+text = "[E]"
+offset = 10
+metadata/_custom_type_script = "uid://cxkyhqvh4ap73"
