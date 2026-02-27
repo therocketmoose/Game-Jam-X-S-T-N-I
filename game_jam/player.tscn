@@ -163,16 +163,5 @@ shape = SubResource("RectangleShape2D_onrkg")
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1117403335]
 
 [node name="Healthbar" parent="CanvasLayer" unique_id=616041222 instance=ExtResource("4_hqtel")]
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -32.0
-offset_top = -11.0
-offset_right = 32.0
-offset_bottom = -7.0
-grow_horizontal = 2
-grow_vertical = 0
 
 [connection signal="die" from="CanvasLayer/Healthbar" to="." method="_on_healthbar_die"]
