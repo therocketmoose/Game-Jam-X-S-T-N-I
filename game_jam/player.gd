@@ -1,18 +1,19 @@
+class_name Player
 extends CharacterBody2D
 
-const speed = 300.0
-const jump_force = -400.0
-const roll_speed = 900.0  # Reduced from 9000 (which is teleport-speed)
-const roll_decel = 2000.0 # How fast the roll slows down
-var damage_modifier := 1.0
-
 @onready var animation: AnimatedSprite2D = $animation
+@onready var healthbar: HealthBar = $CanvasLayer/Healthbar
 
 var is_rolling := false
 
+@export var health: int
+
+func _ready():
+	healthbar.init_health(health)
+	
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
-		velocity += get_gravity() * delta
+		velocity.y += gravity * delta
 
 	var direction := Input.get_axis("move_left", "move_right")
 
@@ -39,8 +40,12 @@ func _physics_process(delta: float) -> void:
 		else:
 			velocity.x = move_toward(velocity.x, 0, speed)
 			animation.play("idle")
-
+	
 	if Input.is_action_just_pressed("jump") and is_on_floor() and not is_rolling:
 		velocity.y = jump_force
 
 	move_and_slide()
+
+func _on_healthbar_die() -> void:
+	animation.play("die")
+	self.queue_free()

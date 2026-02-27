@@ -22,7 +22,7 @@ func _on_interacted_with() -> void:
 		player.damage_modifier = 0.5
 		await get_tree().create_timer(10.0).timeout
 		player.damage_modifier = 1.0
-	queue_free()
+	self.queue_free()
 	
 func return_child_of_type(parent: Node, type_to_find):
 	for child in parent.get_children():
