@@ -86,7 +86,8 @@ func _physics_process(delta):
 		if collider is Player:
 			collider.take_damage(damage_amount)
 
-# --- Damage & Death Functions ---
+# --- Damage & Death Functions --- and gabagool
+
 
 func take_damage(amount: int):
 	health -= amount

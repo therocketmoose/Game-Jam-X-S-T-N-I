@@ -97,3 +97,6 @@ autoplay = &"move"
 
 [node name="Suffocator" parent="." unique_id=2137850836 instance=ExtResource("4_eck3n")]
 position = Vector2(91, 6)
+
+[node name="Suffocator2" parent="." unique_id=201172179 instance=ExtResource("4_eck3n")]
+position = Vector2(602, 775)
