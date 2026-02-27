@@ -1,7 +1,11 @@
-[gd_resource type="Resource" script_class="UpgradeResources" format=3 uid="uid://0iw2p6m1apgh"]
+[gd_resource type="Resource" script_class="UpgradeResources" format=3 uid="uid://bv76ioieuwlvi"]
 
 [ext_resource type="Script" uid="uid://bq0pp17jb0bup" path="res://Upgrades/Main/upgrade_resources.gd" id="1_s6eq0"]
+[ext_resource type="Texture2D" uid="uid://5upn1lr48hcj" path="res://Art/SpriteSheets/pills.png" id="2_ap04m"]
 
 [resource]
 script = ExtResource("1_s6eq0")
+sprite = ExtResource("2_ap04m")
+selected_type = "sword_damage"
+multiplier = 1.2
 metadata/_custom_type_script = "uid://bq0pp17jb0bup"
