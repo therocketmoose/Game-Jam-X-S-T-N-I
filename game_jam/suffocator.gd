@@ -14,6 +14,7 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var breath_timer: Timer = $"Breath Timer"
 @onready var wall_check: RayCast2D = $WallCheck
 @onready var ledge_check: RayCast2D = $LedgeCheck
+@onready var s_health_bar: ProgressBar = $SHealthBar
 
 enum State { WALK, BURST, BREATHING, DEAD }
 var current_state = State.WALK
@@ -24,6 +25,10 @@ var facing_direction: int = 1
 func _ready():
 	player = get_tree().get_first_node_in_group("player") as Player
 	burst_timer.start() 
+	
+	if s_health_bar:
+		s_health_bar.max_value = health
+		s_health_bar.value = health
 	
 	if ledge_check:
 		ledge_check.target_position.y = safe_drop_distance
@@ -37,22 +42,17 @@ func _physics_process(delta):
 		return
 
 	var dir_to_player = sign(player.global_position.x - global_position.x)
-	
-	# --- NEW: Anti-Head-Balancing Logic ---
-	# If the enemy is perfectly stacked on the player, force him to slide off
 	if dir_to_player == 0:
 		dir_to_player = facing_direction 
 	
 	var move_dir = dir_to_player
 	
-	# --- AI Vision Logic ---
 	if is_on_floor():
 		if not ledge_check.is_colliding():
 			move_dir = 0 
 		elif wall_check.is_colliding():
 			velocity.y = jump_force
 
-	# --- State Machine ---
 	match current_state:
 		State.WALK:
 			velocity.x = move_dir * move_speed
@@ -61,25 +61,24 @@ func _physics_process(delta):
 		State.BREATHING:
 			velocity.x = move_toward(velocity.x, 0, move_speed) 
 
-	# --- Sprite & Raycast Flipping ---
 	if velocity.x != 0:
 		facing_direction = -1 if velocity.x < 0 else 1
 		sprite_2d.flip_h = velocity.x < 0
-		
 		wall_check.target_position.x = abs(wall_check.target_position.x) * facing_direction
 		ledge_check.position.x = abs(ledge_check.position.x) * facing_direction
+		
+		# Prevent health bar from flipping
+		s_health_bar.scale.x = abs(s_health_bar.scale.x) * (1 if not sprite_2d.flip_h else -1)
 	
-	# --- NEW: Updated Visual Feedback ---
 	if current_state == State.BURST:
-		sprite_2d.modulate = Color.RED # Now turns bright red during Burst!
+		sprite_2d.modulate = Color.RED 
 	elif current_state == State.BREATHING:
-		sprite_2d.modulate = Color(0.7, 0.7, 1.0, 1) # Turns a slightly exhausted bluish-grey while catching breath
+		sprite_2d.modulate = Color(0.7, 0.7, 1.0, 1) 
 	else:
 		sprite_2d.modulate = Color.WHITE
 		
 	move_and_slide()
 	
-	# --- Player Collision & Damage ---
 	for i in get_slide_collision_count():
 		var collision = get_slide_collision(i)
 		var collider = collision.get_collider()
@@ -87,12 +86,14 @@ func _physics_process(delta):
 			var healthbar: HealthBar = collider.get_node("CanvasLayer/Healthbar")
 			healthbar.take_damage(damage_amount)
 
-# --- Damage & Death Functions --- and gabagool
-
-
 func take_damage(amount: int):
 	health -= amount
-	print("Enemy hit! Health remaining: ", health)
+	
+	# UPDATE HEALTH BAR
+	if s_health_bar:
+		s_health_bar.value = health
+		
+	print("Suffocator hit! Health remaining: ", health)
 	
 	var tween = create_tween()
 	tween.tween_property(sprite_2d, "modulate", Color.RED, 0.1)
@@ -104,9 +105,9 @@ func take_damage(amount: int):
 func die():
 	current_state = State.DEAD
 	velocity = Vector2.ZERO
+	if s_health_bar:
+		s_health_bar.hide()
 	queue_free() 
-
-# --- Timer Signals ---
 
 func _on_burst_timer_timeout():
 	if current_state == State.WALK:
@@ -115,11 +116,8 @@ func _on_burst_timer_timeout():
 
 func _on_breath_timer_timeout():
 	if current_state == State.DEAD: return
-	
 	current_state = State.BREATHING
-	
 	await get_tree().create_timer(0.8).timeout
-	
 	if current_state != State.DEAD:
 		current_state = State.WALK
 		burst_timer.start()
