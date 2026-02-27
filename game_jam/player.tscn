@@ -1,9 +1,34 @@
 [gd_scene format=3 uid="uid://coguswmimkhxy"]
 
 [ext_resource type="Script" uid="uid://b281j0pecvres" path="res://player.gd" id="1_4flbx"]
+[ext_resource type="Texture2D" uid="uid://0u6jv2l5ohnt" path="res://Art/SpriteSheets/death_animation.png" id="2_sweqy"]
 [ext_resource type="Texture2D" uid="uid://brq1ck6lblecq" path="res://Art/SpriteSheets/rex.png" id="3_hqtel"]
 [ext_resource type="PackedScene" uid="uid://c7jprhbeckqbk" path="res://Components/Health/Damage indicators/Healthbar.tscn" id="4_hqtel"]
 [ext_resource type="PackedScene" uid="uid://84m8sx32lfct" path="res://Interactions/main/interactor.tscn" id="4_sweqy"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pbfsw"]
+atlas = ExtResource("2_sweqy")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5tmop"]
+atlas = ExtResource("2_sweqy")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7ahtn"]
+atlas = ExtResource("2_sweqy")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7lmhl"]
+atlas = ExtResource("2_sweqy")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dx0e4"]
+atlas = ExtResource("2_sweqy")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jm5j8"]
+atlas = ExtResource("2_sweqy")
+region = Rect2(32, 16, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hqtel"]
 atlas = ExtResource("3_hqtel")
@@ -71,6 +96,29 @@ region = Rect2(48, 0, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_n7ghd"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pbfsw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5tmop")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7ahtn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7lmhl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dx0e4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jm5j8")
+}],
+"loop": true,
+"name": &"die",
+"speed": 8.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_hqtel")
@@ -146,8 +194,8 @@ script = ExtResource("1_4flbx")
 
 [node name="animation" type="AnimatedSprite2D" parent="." unique_id=188234750]
 sprite_frames = SubResource("SpriteFrames_n7ghd")
-animation = &"roll"
-frame_progress = 0.7902379
+animation = &"die"
+frame_progress = 0.36331493
 
 [node name="Interactor" parent="." unique_id=791728671 instance=ExtResource("4_sweqy")]
 visible = false
@@ -162,6 +210,18 @@ shape = SubResource("RectangleShape2D_onrkg")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1117403335]
 
-[node name="Healthbar" parent="CanvasLayer" unique_id=616041222 instance=ExtResource("4_hqtel")]
+[node name="Healthbar" parent="CanvasLayer" unique_id=616041222 node_paths=PackedStringArray("player") instance=ExtResource("4_hqtel")]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -32.0
+offset_top = -13.0
+offset_right = 32.0
+offset_bottom = -9.0
+grow_horizontal = 2
+grow_vertical = 0
+player = NodePath("../..")
 
 [connection signal="die" from="CanvasLayer/Healthbar" to="." method="_on_healthbar_die"]

@@ -1,3 +1,4 @@
+class_name Player
 extends CharacterBody2D
 
 const speed = 200.0
@@ -54,4 +55,5 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 func _on_healthbar_die() -> void:
+	animation.play("die")
 	self.queue_free()
