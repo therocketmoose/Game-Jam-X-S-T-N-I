@@ -61,7 +61,6 @@ z_index = 5
 =======
 
 [node name="platform" parent="." unique_id=828828131 instance=ExtResource("3_f7g2b")]
-visible = false
 position = Vector2(222, 20)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="platform" unique_id=325866390]
