@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://bqomigsnclr4u" path="res://platform.tscn" id="2_bo08i"]
 [ext_resource type="Texture2D" uid="uid://kadt8iplo27g" path="res://Art/SpriteSheets/MethLand_tileshee2t.png" id="2_eck3n"]
 [ext_resource type="PackedScene" uid="uid://coguswmimkhxy" path="res://player.tscn" id="3_foyw7"]
+[ext_resource type="PackedScene" uid="uid://k1utc1opch0t" path="res://Scenes/suffocator.tscn" id="4_eck3n"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bo08i"]
 texture = ExtResource("1_ojold")
@@ -107,4 +108,10 @@ autoplay = &"move"
 position = Vector2(-3007, -509)
 
 [node name="Camera2D" type="Camera2D" parent="player" unique_id=98599183]
+<<<<<<< HEAD
 position = Vector2(-6, 10)
+=======
+
+[node name="Suffocator" parent="." unique_id=2137850836 instance=ExtResource("4_eck3n")]
+position = Vector2(-77, 39)
+>>>>>>> d1ce16db3c4cf14b2cfe7ba6adb10f29feb1632a
