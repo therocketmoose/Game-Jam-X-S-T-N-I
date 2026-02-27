@@ -195,7 +195,7 @@ script = ExtResource("1_4flbx")
 [node name="animation" type="AnimatedSprite2D" parent="." unique_id=188234750]
 sprite_frames = SubResource("SpriteFrames_n7ghd")
 animation = &"die"
-frame_progress = 0.36331493
+frame_progress = 0.66590065
 
 [node name="Interactor" parent="." unique_id=791728671 instance=ExtResource("4_sweqy")]
 visible = false

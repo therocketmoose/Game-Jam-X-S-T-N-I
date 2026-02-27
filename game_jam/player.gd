@@ -56,4 +56,5 @@ func _physics_process(delta: float) -> void:
 
 func _on_healthbar_die() -> void:
 	animation.play("die")
+	await animation.animation_finished
 	self.queue_free()
