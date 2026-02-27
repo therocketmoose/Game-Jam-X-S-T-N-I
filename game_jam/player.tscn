@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://b281j0pecvres" path="res://player.gd" id="1_4flbx"]
 [ext_resource type="Texture2D" uid="uid://0u6jv2l5ohnt" path="res://Art/SpriteSheets/death_animation.png" id="2_sweqy"]
 [ext_resource type="Texture2D" uid="uid://brq1ck6lblecq" path="res://Art/SpriteSheets/rex.png" id="3_hqtel"]
+[ext_resource type="Texture2D" uid="uid://cd74jcv3buc8p" path="res://Art/SpriteSheets/jump_animation.png" id="4_2hs0m"]
 [ext_resource type="PackedScene" uid="uid://c7jprhbeckqbk" path="res://Components/Health/Damage indicators/Healthbar.tscn" id="4_hqtel"]
 [ext_resource type="PackedScene" uid="uid://84m8sx32lfct" path="res://Interactions/main/interactor.tscn" id="4_sweqy"]
 
@@ -46,6 +47,18 @@ region = Rect2(32, 16, 16, 16)
 atlas = ExtResource("3_hqtel")
 region = Rect2(48, 16, 16, 16)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_7hik5"]
+atlas = ExtResource("4_2hs0m")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qtqh7"]
+atlas = ExtResource("4_2hs0m")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2wuci"]
+atlas = ExtResource("4_2hs0m")
+region = Rect2(32, 0, 16, 16)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_ivps1"]
 atlas = ExtResource("3_hqtel")
 region = Rect2(0, 32, 16, 16)
@@ -73,10 +86,6 @@ region = Rect2(16, 48, 16, 16)
 [sub_resource type="AtlasTexture" id="AtlasTexture_q13i1"]
 atlas = ExtResource("3_hqtel")
 region = Rect2(32, 48, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_pylmc"]
-atlas = ExtResource("3_hqtel")
-region = Rect2(48, 48, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2hs0m"]
 atlas = ExtResource("3_hqtel")
@@ -138,6 +147,20 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_7hik5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qtqh7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2wuci")
+}],
+"loop": false,
+"name": &"jump",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_ivps1")
 }, {
 "duration": 1.0,
@@ -157,11 +180,8 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_q13i1")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_pylmc")
 }],
-"loop": true,
+"loop": false,
 "name": &"roll",
 "speed": 10.0
 }, {
@@ -194,9 +214,7 @@ script = ExtResource("1_4flbx")
 
 [node name="animation" type="AnimatedSprite2D" parent="." unique_id=188234750]
 sprite_frames = SubResource("SpriteFrames_n7ghd")
-animation = &"die"
-frame = 5
-frame_progress = 1.0
+animation = &"roll"
 
 [node name="Interactor" parent="." unique_id=791728671 instance=ExtResource("4_sweqy")]
 visible = false

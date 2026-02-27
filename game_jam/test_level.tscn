@@ -2,42 +2,9 @@
 
 [ext_resource type="PackedScene" uid="uid://coguswmimkhxy" path="res://player.tscn" id="1_80nbo"]
 [ext_resource type="Script" uid="uid://b7p40o148yleo" path="res://manager.gd" id="1_f7g2b"]
-[ext_resource type="Texture2D" uid="uid://co6wd8sxyrwbj" path="res://Art/Tile Sets/wasteland_1.png" id="2_1c2mv"]
+[ext_resource type="PackedScene" uid="uid://c3hjbliuaonug" path="res://level_one.tscn" id="2_sb12i"]
 [ext_resource type="PackedScene" uid="uid://bqomigsnclr4u" path="res://platform.tscn" id="3_f7g2b"]
 [ext_resource type="PackedScene" uid="uid://k1utc1opch0t" path="res://Scenes/suffocator.tscn" id="5_sb12i"]
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_f7g2b"]
-texture = ExtResource("2_1c2mv")
-0:0/0 = 0
-0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
-1:0/0 = 0
-1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
-2:0/0 = 0
-2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
-3:0/0 = 0
-3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
-4:0/0 = 0
-4:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
-0:1/0 = 0
-0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
-1:1/0 = 0
-1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
-2:1/0 = 0
-2:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
-3:1/0 = 0
-3:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
-4:1/0 = 0
-4:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
-0:2/0 = 0
-0:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
-1:2/0 = 0
-1:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
-2:2/0 = 0
-2:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
-
-[sub_resource type="TileSet" id="TileSet_4ptq8"]
-physics_layer_0/collision_layer = 1
-sources/0 = SubResource("TileSetAtlasSource_f7g2b")
 
 [sub_resource type="Animation" id="Animation_f7g2b"]
 length = 0.001
@@ -80,18 +47,16 @@ _data = {
 [node name="game" type="Node2D" unique_id=692819522]
 script = ExtResource("1_f7g2b")
 
+[node name="Level One" parent="." unique_id=822471715 instance=ExtResource("2_sb12i")]
+
 [node name="player" parent="." unique_id=1920163338 instance=ExtResource("1_80nbo")]
 z_index = 5
 health = 100
 
 [node name="Camera2D" type="Camera2D" parent="player" unique_id=1044409230]
 
-[node name="TileMap" type="TileMap" parent="." unique_id=1008420883]
-tile_set = SubResource("TileSet_4ptq8")
-format = 2
-layer_0/tile_data = PackedInt32Array(131071, 65536, 0, 65536, 65536, 0, 131070, 65536, 0, 65537, 65536, 0, 131069, 0, 0, 196605, 262144, 1, 196604, 65536, 0, 196602, 65536, 0, 196603, 65536, 0, 196601, 65536, 0, 65538, 65536, 0, 65539, 65536, 0, 65540, 65536, 0, 65541, 65536, 0, 262137, 65536, 1, 262138, 65536, 1, 262139, 65536, 1, 262140, 65536, 1, 262141, 65536, 1, 262142, 65536, 1, 196606, 65536, 1, 196607, 65536, 1, 262143, 65536, 1, 196608, 65536, 1, 131072, 65536, 1, 131073, 65536, 1, 131074, 65536, 1, 196610, 65536, 1, 196611, 65536, 1, 131075, 65536, 1, 196609, 65536, 1, 131076, 65536, 1, 196612, 65536, 1, 196613, 65536, 1, 131077, 65536, 1, 65542, 65536, 0, 131078, 65536, 1, 196614, 196608, 0, 262150, 131072, 2, 327672, 65536, 2, 196600, 65536, 0, 262136, 65536, 1, 327673, 65536, 2, 327674, 65536, 2, 327675, 65536, 2, 327676, 65536, 2, 327677, 65536, 2, 327678, 65536, 2, 327679, 65536, 2, 262144, 65536, 2, 262145, 65536, 2, 262146, 65536, 2, 262147, 65536, 2, 262148, 65536, 2, 262149, 65536, 2, 65543, 65536, 0, 65544, 65536, 0, 65545, 65536, 0, 65546, 65536, 0, 65547, 65536, 0, 65548, 131072, 0, 131084, 131072, 1, 196620, 131072, 2, 196619, 65536, 2, 196618, 65536, 2, 196617, 65536, 2, 196616, 65536, 2, 196615, 65536, 2, 131079, 65536, 1, 131080, 65536, 1, 131081, 65536, 1, 131082, 65536, 1, 131083, 65536, 1, 65558, 0, 0, 131094, 0, 1, 196630, 0, 1, 65559, 65536, 0, 131095, 65536, 1, 196631, 65536, 1, 65560, 65536, 0, 131096, 65536, 1, 196632, 65536, 1, 65561, 65536, 0, 131097, 65536, 1, 196633, 65536, 1, 65562, 65536, 0, 131098, 65536, 1, 196634, 65536, 1, 65563, 65536, 0, 131099, 65536, 1, 196635, 65536, 1, 65564, 65536, 0, 131100, 65536, 1, 196636, 65536, 1, 196599, 65536, 0, 196598, 65536, 0, 196597, 65536, 0, 196596, 65536, 0, 196595, 65536, 0, 131058, 65536, 0, 131057, 65536, 0, 131056, 65536, 0, 131055, 65536, 0, 131054, 65536, 0, 65517, 65536, 0, 65516, 65536, 0, 65515, 65536, 0, 65514, 65536, 0, 65513, 65536, 0, 65512, 65536, 0, 65511, 65536, 0, 262135, 65536, 1, 262134, 65536, 1, 262133, 65536, 1, 262132, 65536, 1, 262131, 65536, 1, 262130, 65536, 1, 196594, 65536, 1, 196593, 65536, 1, 196592, 65536, 1, 196591, 65536, 1, 196590, 65536, 1, 196589, 65536, 1, 131053, 65536, 1, 131052, 65536, 1, 131051, 65536, 1, 131050, 65536, 1, 131049, 65536, 1, 131048, 65536, 1, 131047, 65536, 1, 131046, 65536, 0, 196583, 65536, 1, 196584, 65536, 1, 196585, 65536, 1, 196586, 65536, 1, 196587, 65536, 1, 196588, 65536, 1, 262124, 65536, 1, 262125, 65536, 1, 262126, 65536, 1, 262127, 65536, 1, 262128, 65536, 1, 262129, 65536, 1, 327669, 65536, 2, 327670, 65536, 2, 327671, 65536, 2, 327668, 65536, 2, 327667, 65536, 2, 327666, 65536, 2, 327665, 65536, 2, 327664, 65536, 2, 327663, 65536, 2, 327662, 65536, 2, 327661, 65536, 2, 327660, 65536, 2, 327659, 65536, 2, 262123, 65536, 1, 262122, 65536, 2, 262121, 65536, 2, 262120, 65536, 2, 262119, 65536, 2, 196582, 65536, 2)
-
 [node name="platform" parent="." unique_id=828828131 instance=ExtResource("3_f7g2b")]
+visible = false
 position = Vector2(222, 20)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="platform" unique_id=325866390]
@@ -99,9 +64,11 @@ libraries/ = SubResource("AnimationLibrary_sb12i")
 autoplay = &"move"
 
 [node name="platform2" parent="." unique_id=45709686 instance=ExtResource("3_f7g2b")]
+visible = false
 position = Vector2(72, -9)
 
 [node name="platform3" parent="." unique_id=1150107094 instance=ExtResource("3_f7g2b")]
+visible = false
 position = Vector2(-33, -3)
 
 [node name="Suffocator" parent="." unique_id=2137850836 instance=ExtResource("5_sb12i")]
