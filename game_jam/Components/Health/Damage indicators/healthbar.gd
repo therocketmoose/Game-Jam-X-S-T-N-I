@@ -10,11 +10,6 @@ signal die
 
 var health = 0 : set = _set_health
 
-# Inside your HealthBar script or Player script _process
-func _process(_delta):
-	if Input.is_action_just_pressed("left_click"):
-		health -= 20
-
 func _set_health(new_health):
 	var prev_health = health
 	health = min(max_value, new_health)
@@ -23,6 +18,7 @@ func _set_health(new_health):
 	if health <= 0:
 		die.emit()
 	
+	# Color changing logic based on health percentage
 	if health <= 80:
 		if health <= 20:
 			player.animation.modulate = Color(1, 0, 0, 1.0) # Dark Red
@@ -35,12 +31,12 @@ func _set_health(new_health):
 	else:
 		player.animation.modulate = Color(1, 1, 1, 1)
 	
+	# Damage bar catch-up animation logic
 	if health < prev_health:
 		timer.start()
 	else: 
 		damage_bar.value = health
 			
-
 func init_health(_health):
 	health = _health
 	max_value = health
@@ -50,4 +46,3 @@ func init_health(_health):
 
 func _on_timer_timeout():
 	damage_bar.value = health
-	

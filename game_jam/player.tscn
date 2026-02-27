@@ -221,7 +221,7 @@ radius = 11.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_onrkg"]
 size = Vector2(12, 16)
 
-[node name="player" type="CharacterBody2D" unique_id=1920163338]
+[node name="player" type="CharacterBody2D" unique_id=1920163338 groups=["player"]]
 script = ExtResource("1_4flbx")
 
 [node name="animation" type="AnimatedSprite2D" parent="." unique_id=188234750]
@@ -242,17 +242,8 @@ shape = SubResource("RectangleShape2D_onrkg")
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1117403335]
 
 [node name="Healthbar" parent="CanvasLayer" unique_id=616041222 node_paths=PackedStringArray("player") instance=ExtResource("4_hqtel")]
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -32.0
 offset_top = -13.0
-offset_right = 32.0
 offset_bottom = -9.0
-grow_horizontal = 2
-grow_vertical = 0
 player = NodePath("../..")
 
 [connection signal="die" from="CanvasLayer/Healthbar" to="." method="_on_healthbar_die"]

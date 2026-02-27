@@ -23,5 +23,12 @@ shape = SubResource("RectangleShape2D_spvos")
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=21606600]
 texture = ExtResource("2_onvid")
 
+[node name="WallCheck" type="RayCast2D" parent="." unique_id=103491449]
+target_position = Vector2(20, 0)
+
+[node name="LedgeCheck" type="RayCast2D" parent="." unique_id=1242750086]
+position = Vector2(15, 0)
+target_position = Vector2(0, 20)
+
 [connection signal="timeout" from="Breath Timer" to="." method="_on_breath_timer_timeout"]
 [connection signal="timeout" from="Burst Timer" to="." method="_on_burst_timer_timeout"]
