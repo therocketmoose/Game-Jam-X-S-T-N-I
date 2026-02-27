@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://cd74jcv3buc8p" path="res://Art/SpriteSheets/jump_animation.png" id="4_2hs0m"]
 [ext_resource type="PackedScene" uid="uid://c7jprhbeckqbk" path="res://Components/Health/Damage indicators/Healthbar.tscn" id="4_hqtel"]
 [ext_resource type="PackedScene" uid="uid://84m8sx32lfct" path="res://Interactions/main/interactor.tscn" id="4_sweqy"]
+[ext_resource type="PackedScene" uid="uid://c6rra004grdwx" path="res://Scenes/sword_gun.tscn" id="7_1jxqw"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pbfsw"]
 atlas = ExtResource("2_sweqy")
@@ -243,5 +244,8 @@ shape = SubResource("RectangleShape2D_onrkg")
 offset_top = -13.0
 offset_bottom = -9.0
 player = NodePath("../..")
+
+[node name="SwordGun" parent="." unique_id=1686054373 instance=ExtResource("7_1jxqw")]
+offset = Vector2(-10, -1)
 
 [connection signal="die" from="CanvasLayer/Healthbar" to="." method="_on_healthbar_die"]
