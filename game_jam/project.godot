@@ -11,7 +11,11 @@ config_version=5
 [application]
 
 config/name="Game Jam"
+<<<<<<< Updated upstream
 run/main_scene="uid://bdnbkmpfwp0vi"
+=======
+run/main_scene="uid://k1utc1opch0t"
+>>>>>>> Stashed changes
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 run/default_bus_layout="res://default_bus_layout.tres"

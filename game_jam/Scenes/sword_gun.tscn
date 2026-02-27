@@ -81,10 +81,21 @@ animations = [{
 "speed": 20.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cq8v8"]
+size = Vector2(8, 24)
+
 [node name="SwordGun" type="Node2D" unique_id=1686054373]
 script = ExtResource("1_cq8v8")
-attack_speed = 0.8
+attack_speed = 0.6
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1981570655]
 sprite_frames = SubResource("SpriteFrames_8aefw")
 animation = &"attack"
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=1563630046]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=246727599]
+position = Vector2(0, -4)
+shape = SubResource("RectangleShape2D_cq8v8")
+
+[connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]

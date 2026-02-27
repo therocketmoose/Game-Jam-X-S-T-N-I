@@ -1,48 +1,34 @@
-class_name HealthBar
 extends ProgressBar
 
-@onready var timer = $Timer
-@onready var damage_bar = $"Damage Bar"
-
-@export var player: Player
+@onready var timer: Timer = $Timer
+@onready var damage_bar: ProgressBar = $"Damage Bar"
 
 signal die
 
-var health = 0 : set = _set_health
+var health: float = 0 : set = _set_health
 
-func _set_health(new_health):
+func _set_health(new_health: float):
 	var prev_health = health
-	health = min(max_value, new_health)
+	health = clamp(new_health, 0, max_value)
 	value = health
 	
 	if health <= 0:
 		die.emit()
-	
-	# Color changing logic based on health percentage
-	if health <= 80:
-		if health <= 20:
-			player.animation.modulate = Color(1, 0, 0, 1.0) # Dark Red
-		elif health <= 40:
-			player.animation.modulate = Color(1, 0.3, 0.3, 1)
-		elif health <= 60:
-			player.animation.modulate = Color(1, 0.6, 0.6, 1)
-		else: # 80 to 61
-			player.animation.modulate = Color(1, 1, 1, 0.8) # Faded
-	else:
-		player.animation.modulate = Color(1, 1, 1, 1)
 	
 	# Damage bar catch-up animation logic
 	if health < prev_health:
 		timer.start()
 	else: 
 		damage_bar.value = health
-			
-func init_health(_health):
+
+func init_health(_health: float):
+	max_value = _health
 	health = _health
-	max_value = health
-	value = health
-	damage_bar.max_value = health	
-	damage_bar.value = health
+	value = _health
+	if damage_bar:
+		damage_bar.max_value = _health	
+		damage_bar.value = _health
 
 func _on_timer_timeout():
-	damage_bar.value = health
+	if damage_bar:
+		damage_bar.value = health
