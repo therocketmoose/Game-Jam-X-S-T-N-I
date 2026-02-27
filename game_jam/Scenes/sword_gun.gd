@@ -2,8 +2,7 @@ class_name SwordGun
 extends Node2D
 
 @onready var animation: AnimatedSprite2D = $AnimatedSprite2D
-@onready var hit_box: Area2D = $HitBox # Reference to the new Area2D
-@onready var hit_shape: CollisionShape2D = $HitBox/CollisionShape2D
+@onready var hit_box: Area2D = $HitBox # Fixed the casing here
 
 @export var damage: int = 1
 @export var offset: Vector2 = Vector2(-30, -30)
@@ -15,10 +14,9 @@ extends Node2D
 var is_attacking: bool = false
 
 func _ready():
-	# Ensure the hitbox is off when the game starts
-	hit_box.monitoring = false
-	# Connect the signal via code (or do it in the editor)
-	hit_box.body_entered.connect(_on_hit_box_body_entered)
+	if hit_box:
+		hit_box.monitoring = false
+		hit_box.body_entered.connect(_on_hit_box_body_entered)
 
 func _process(delta: float) -> void:
 	var idle_target_pos = get_parent().global_position + offset
@@ -36,8 +34,8 @@ func attack(start_pos: Vector2) -> void:
 	is_attacking = true
 	animation.play("attack")
 	
-	# Enable the hitbox ONLY during the attack
-	hit_box.monitoring = true
+	if hit_box:
+		hit_box.monitoring = true
 
 	var dir_to_mouse = (get_global_mouse_position() - global_position).normalized()
 	rotation = dir_to_mouse.angle() 
@@ -60,10 +58,10 @@ func attack(start_pos: Vector2) -> void:
 	
 	tween.tween_callback(func(): 
 		is_attacking = false
-		hit_box.monitoring = false # Turn off hitbox after swing
+		if hit_box:
+			hit_box.monitoring = false
 	)
 
-# This function runs when the sword touches something
 func _on_hit_box_body_entered(body: Node2D):
 	if body.has_method("take_damage") and body != get_parent():
 		body.take_damage(damage)

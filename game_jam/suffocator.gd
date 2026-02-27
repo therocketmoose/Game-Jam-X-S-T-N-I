@@ -3,7 +3,7 @@ extends CharacterBody2D
 @export var move_speed: float = 40.0
 @export var burst_speed: float = 120.0
 @export var health: int = 3
-@export var damage_amount: int = 10 
+@export var damage_amount: int = 5  # Lowered from 10 to 5
 @export var jump_force: float = -300.0
 @export var safe_drop_distance: float = 150.0 
 
@@ -67,8 +67,9 @@ func _physics_process(delta):
 		wall_check.target_position.x = abs(wall_check.target_position.x) * facing_direction
 		ledge_check.position.x = abs(ledge_check.position.x) * facing_direction
 		
-		# Prevent health bar from flipping
-		s_health_bar.scale.x = abs(s_health_bar.scale.x) * (1 if not sprite_2d.flip_h else -1)
+		# Keep HealthBar from flipping
+		if s_health_bar:
+			s_health_bar.scale.x = abs(s_health_bar.scale.x) * (1 if not sprite_2d.flip_h else -1)
 	
 	if current_state == State.BURST:
 		sprite_2d.modulate = Color.RED 
@@ -79,6 +80,7 @@ func _physics_process(delta):
 		
 	move_and_slide()
 	
+	# COLLISION WITH PLAYER
 	for i in get_slide_collision_count():
 		var collision = get_slide_collision(i)
 		var collider = collision.get_collider()
@@ -88,13 +90,9 @@ func _physics_process(delta):
 
 func take_damage(amount: int):
 	health -= amount
-	
-	# UPDATE HEALTH BAR
 	if s_health_bar:
 		s_health_bar.value = health
 		
-	print("Suffocator hit! Health remaining: ", health)
-	
 	var tween = create_tween()
 	tween.tween_property(sprite_2d, "modulate", Color.RED, 0.1)
 	tween.tween_property(sprite_2d, "modulate", Color.WHITE, 0.1)
