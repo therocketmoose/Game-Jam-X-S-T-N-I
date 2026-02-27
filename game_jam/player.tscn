@@ -161,6 +161,7 @@ visible = false
 shape = SubResource("RectangleShape2D_onrkg")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1117403335]
+follow_viewport_enabled = true
 
 [node name="Healthbar" parent="CanvasLayer" unique_id=616041222 instance=ExtResource("4_hqtel")]
 
