@@ -5,8 +5,8 @@ extends CharacterBody2D
 @onready var healthbar: HealthBar = $CanvasLayer/Healthbar
 
 var is_rolling := false
-
 var is_dead := false
+var is_invincible := false # Protects player from instant multi-hits
 
 @export var health: int
 
@@ -29,9 +29,9 @@ func _physics_process(delta: float) -> void:
 		if direction != 0:
 			is_rolling = true
 			velocity.x = direction * roll_speed
-			animation.play("roll") # Make sure you have a "roll" animation!
+			animation.play("roll")
 
-	# 3. Movement Logic
+	# Movement Logic
 	if not is_dead:
 		if is_rolling:
 			# Decelerate the roll until it hits normal speed
@@ -54,6 +54,28 @@ func _physics_process(delta: float) -> void:
 		velocity.y = jump_force
 
 	move_and_slide()
+
+# --- Combat Logic ---
+
+func take_damage(amount: int):
+	# Ignore damage if dead, dodging, or currently in i-frames
+	if is_dead or is_rolling or is_invincible:
+		return
+		
+	# Trigger i-frames and apply damage
+	is_invincible = true
+	healthbar.health -= amount
+	
+	# Visual feedback: Flash the player sprite to show invincibility
+	var tween = create_tween()
+	tween.tween_property(animation, "modulate:a", 0.3, 0.1) # Fade out slightly
+	tween.tween_property(animation, "modulate:a", 1.0, 0.1) # Fade back in
+	tween.set_loops(5) # Repeat the flash 5 times (takes 1 second total)
+	
+	# Wait for 1 second, then remove invincibility
+	await get_tree().create_timer(1.0).timeout
+	is_invincible = false
+	animation.modulate.a = 1.0 # Ensure opacity is fully reset
 
 func _on_healthbar_die() -> void:
 	is_dead = true
