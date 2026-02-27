@@ -1,0 +1,7 @@
+[gd_resource type="AudioStreamPlaylist" format=3 uid="uid://b2yn05merxmqp"]
+
+[ext_resource type="AudioStream" uid="uid://c8xvxan0ikl7i" path="res://Art/Untitled-3.mp3" id="1_f4ha3"]
+
+[resource]
+stream_count = 1
+stream_0 = ExtResource("1_f4ha3")
