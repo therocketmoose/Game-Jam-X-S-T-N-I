@@ -11,7 +11,7 @@ extends CharacterBody2D
 var is_attacking = false
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
-@onready var sprite_2d: Sprite2D = $Sprite2D
+@onready var sprite: AnimatedSprite2D = $Sprite2D
 @onready var burst_timer: Timer = $"Burst Timer"
 @onready var breath_timer: Timer = $"Breath Timer"
 @onready var wall_check: RayCast2D = $WallCheck
@@ -60,16 +60,18 @@ func _physics_process(delta):
 
 	match current_state:
 		State.WALK:
+			sprite.play("walk")
 			velocity.x = move_dir * move_speed
 		State.BURST:
 			velocity.x = move_dir * burst_speed
 		State.BREATHING:
+			sprite.play("idle")
 			velocity.x = move_toward(velocity.x, 0, move_speed) 
 
 	# --- Handle Flipping ---
 	if velocity.x != 0:
 		facing_direction = -1 if velocity.x < 0 else 1
-		sprite_2d.flip_h = velocity.x < 0
+		sprite.flip_h = velocity.x < 0
 		wall_check.target_position.x = abs(wall_check.target_position.x) * facing_direction
 		ledge_check.position.x = abs(ledge_check.position.x) * facing_direction
 		
@@ -77,7 +79,7 @@ func _physics_process(delta):
 		if s_health_bar:
 			# This keeps the bar pointing the right way even when the parent flips
 			s_health_bar.scale.x = abs(s_health_bar.scale.x)
-			if sprite_2d.flip_h:
+			if sprite.flip_h:
 				# Adjust position if it's not centered, or keep it simple:
 				s_health_bar.scale.x = -abs(s_health_bar.scale.x)
 			else:
@@ -85,11 +87,11 @@ func _physics_process(delta):
 	
 	# --- Visual States ---
 	if current_state == State.BURST:
-		sprite_2d.modulate = Color.RED 
+		sprite.modulate = Color.RED 
 	elif current_state == State.BREATHING:
-		sprite_2d.modulate = Color(0.7, 0.7, 1.0, 1) 
+		sprite.modulate = Color(0.7, 0.7, 1.0, 1) 
 	else:
-		sprite_2d.modulate = Color.WHITE
+		sprite.modulate = Color.WHITE
 		
 	move_and_slide()
 	
@@ -118,8 +120,8 @@ func take_damage(amount: int):
 		
 	# Hit Flash Effect
 	var tween = create_tween()
-	tween.tween_property(sprite_2d, "modulate", Color.RED, 0.1)
-	tween.tween_property(sprite_2d, "modulate", Color.WHITE, 0.1)
+	tween.tween_property(sprite, "modulate", Color.RED, 0.1)
+	tween.tween_property(sprite, "modulate", Color.WHITE, 0.1)
 	
 	if health <= 0:
 		die()

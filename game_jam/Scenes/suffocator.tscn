@@ -1,17 +1,83 @@
 [gd_scene format=3 uid="uid://k1utc1opch0t"]
 
-[ext_resource type="Script" path="res://Enemies/suffocator.gd" id="1_76dc4"]
 [ext_resource type="Texture2D" uid="uid://tne2q83lc33h" path="res://Art/SpriteSheets/Suffocater.png" id="2_onvid"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_spvos"]
 size = Vector2(13, 15)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_76dc4"]
+atlas = ExtResource("2_onvid")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_onvid"]
+atlas = ExtResource("2_onvid")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_spvos"]
+atlas = ExtResource("2_onvid")
+region = Rect2(32, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4pb2c"]
+atlas = ExtResource("2_onvid")
+region = Rect2(48, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4oe4j"]
+atlas = ExtResource("2_onvid")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bcnru"]
+atlas = ExtResource("2_onvid")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rkxr0"]
+atlas = ExtResource("2_onvid")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v6gtu"]
+atlas = ExtResource("2_onvid")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_536j0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_76dc4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_onvid")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_spvos")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4pb2c")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4oe4j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bcnru")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rkxr0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v6gtu")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 8.0
+}]
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_onvid"]
 bg_color = Color(0.7918623, 0.081192024, 0.07946695, 1)
 
 [node name="Suffocator" type="CharacterBody2D" unique_id=2137850836 groups=["Enemy"]]
-script = ExtResource("1_76dc4")
-health = 4
 
 [node name="Breath Timer" type="Timer" parent="." unique_id=1531119063]
 one_shot = true
@@ -24,8 +90,10 @@ one_shot = true
 position = Vector2(-0.5, 0.5)
 shape = SubResource("RectangleShape2D_spvos")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=21606600]
-texture = ExtResource("2_onvid")
+[node name="Sprite2D" type="AnimatedSprite2D" parent="." unique_id=1247373027]
+sprite_frames = SubResource("SpriteFrames_536j0")
+animation = &"walk"
+frame_progress = 0.74500155
 
 [node name="WallCheck" type="RayCast2D" parent="." unique_id=103491449]
 target_position = Vector2(20, 0)
