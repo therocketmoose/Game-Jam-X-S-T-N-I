@@ -143,6 +143,7 @@ size = Vector2(12, 16)
 
 [node name="player" type="CharacterBody2D" unique_id=1920163338]
 script = ExtResource("1_4flbx")
+health = 100
 
 [node name="animation" type="AnimatedSprite2D" parent="." unique_id=188234750]
 sprite_frames = SubResource("SpriteFrames_n7ghd")
