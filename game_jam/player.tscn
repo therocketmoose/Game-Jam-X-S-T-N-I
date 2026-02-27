@@ -31,6 +31,10 @@ region = Rect2(16, 16, 16, 16)
 atlas = ExtResource("2_sweqy")
 region = Rect2(32, 16, 16, 16)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_pylmc"]
+atlas = ExtResource("4_2hs0m")
+region = Rect2(0, 16, 16, 16)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_hqtel"]
 atlas = ExtResource("3_hqtel")
 region = Rect2(0, 16, 16, 16)
@@ -130,6 +134,14 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_pylmc")
+}],
+"loop": true,
+"name": &"fall",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_hqtel")
 }, {
 "duration": 1.0,
@@ -217,14 +229,12 @@ sprite_frames = SubResource("SpriteFrames_n7ghd")
 animation = &"roll"
 
 [node name="Interactor" parent="." unique_id=791728671 instance=ExtResource("4_sweqy")]
-visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Interactor" unique_id=1297824820]
 shape = SubResource("CircleShape2D_hqtel")
 debug_color = Color(0.48492563, 0.5863838, 0, 0.41960785)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=600691164]
-visible = false
 shape = SubResource("RectangleShape2D_onrkg")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1117403335]
