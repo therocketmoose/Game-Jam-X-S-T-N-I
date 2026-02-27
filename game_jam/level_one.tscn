@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://bqomigsnclr4u" path="res://platform.tscn" id="2_bo08i"]
 [ext_resource type="PackedScene" uid="uid://coguswmimkhxy" path="res://player.tscn" id="3_foyw7"]
 [ext_resource type="AudioStream" uid="uid://dmwxdm8uc08yr" path="res://Art/Untitled-3.mp3" id="4_eck3n"]
+[ext_resource type="PackedScene" uid="uid://k1utc1opch0t" path="res://Scenes/suffocator.tscn" id="5_xsnk2"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bo08i"]
 texture = ExtResource("1_ojold")
@@ -98,4 +99,6 @@ autoplay = &"move"
 [node name="Music" type="AudioStreamPlayer2D" parent="." unique_id=1019863782]
 stream = ExtResource("4_eck3n")
 autoplay = true
-bus = &"Music"
+
+[node name="Suffocator" parent="." unique_id=2137850836 instance=ExtResource("5_xsnk2")]
+position = Vector2(-77, 37)

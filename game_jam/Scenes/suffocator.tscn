@@ -35,9 +35,9 @@ position = Vector2(15, 0)
 target_position = Vector2(0, 20)
 
 [node name="SHealthBar" type="ProgressBar" parent="." unique_id=9359693]
-offset_left = 8.0
+offset_left = -8.0
 offset_top = -15.0
-offset_right = 25.0
+offset_right = 9.0
 offset_bottom = -11.0
 theme_override_styles/fill = SubResource("StyleBoxFlat_onvid")
 max_value = 3.0
