@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://c3hjbliuaonug"]
+[gd_scene format=3 uid="uid://cmhsxqdhags6l"]
 
 [ext_resource type="Texture2D" uid="uid://co6wd8sxyrwbj" path="res://Art/Tile Sets/wasteland_1.png" id="1_ojold"]
 [ext_resource type="PackedScene" uid="uid://bqomigsnclr4u" path="res://platform.tscn" id="2_bo08i"]
