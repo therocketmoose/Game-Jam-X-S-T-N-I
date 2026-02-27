@@ -7,6 +7,7 @@ extends CharacterBody2D
 # State Booleans
 var is_rolling := false
 var is_dead := false
+var is_invincible := false
 
 @export var health: int = 100
 
@@ -83,3 +84,23 @@ func _on_healthbar_die() -> void:
 	animation.play("die")
 	await animation.animation_finished
 	get_tree().reload_current_scene() # Better than queue_free for testing
+func take_damage(amount: int):
+	# Ignore damage if dead, dodging, or currently in i-frames
+	if is_dead or is_rolling or is_invincible:
+		return
+		
+	# Trigger i-frames and apply damage
+	is_invincible = true
+	healthbar.health -= amount
+	print("Player hit! Health remaining: ", healthbar.health)
+	
+	# Visual feedback: Flash the player sprite to show invincibility
+	var tween = create_tween()
+	tween.tween_property(animation, "modulate:a", 0.3, 0.1) # Fade out slightly
+	tween.tween_property(animation, "modulate:a", 1.0, 0.1) # Fade back in
+	tween.set_loops(5) # Repeat the flash 5 times (takes 1 second total)
+	
+	# Wait for 1 second, then remove invincibility
+	await get_tree().create_timer(1.0).timeout
+	is_invincible = false
+	animation.modulate.a = 1.0 # Ensure opacity is fully reset	
