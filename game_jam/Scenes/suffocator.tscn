@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://k1utc1opch0t"]
 
-[ext_resource type="Script" uid="uid://gegydegiev2r" path="res://suffocator.gd" id="1_76dc4"]
+[ext_resource type="Script" path="res://Enemies/suffocator.gd" id="1_76dc4"]
 [ext_resource type="Texture2D" uid="uid://tne2q83lc33h" path="res://Art/SpriteSheets/Suffocater.png" id="2_onvid"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_spvos"]
