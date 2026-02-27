@@ -82,4 +82,4 @@ func _on_healthbar_die() -> void:
 	velocity = Vector2.ZERO # Stop movement on death
 	animation.play("die")
 	await animation.animation_finished
-	get_tree().queue_delete(self) # Better than queue_free for testing
+	get_tree().reload_current_scene() # Better than queue_free for testing
