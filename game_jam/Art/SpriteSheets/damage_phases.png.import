@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://5upn1lr48hcj"
-path="res://.godot/imported/pills.png-2c760575fe66a19acb0ae63abea1daee.ctex"
+uid="uid://bnbnxm2h87rkq"
+path="res://.godot/imported/damage_phases.png-ef89165118a254defcb3f939ea74cfc3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/pills.png"
-dest_files=["res://.godot/imported/pills.png-2c760575fe66a19acb0ae63abea1daee.ctex"]
+source_file="res://Art/SpriteSheets/damage_phases.png"
+dest_files=["res://.godot/imported/damage_phases.png-ef89165118a254defcb3f939ea74cfc3.ctex"]
 
 [params]
 
