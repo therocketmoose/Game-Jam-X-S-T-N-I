@@ -87,7 +87,8 @@ func _physics_process(delta):
 			var healthbar: HealthBar = collider.get_node("CanvasLayer/Healthbar")
 			healthbar.take_damage(damage_amount)
 
-# --- Damage & Death Functions ---
+# --- Damage & Death Functions --- and gabagool
+
 
 func take_damage(amount: int):
 	health -= amount
