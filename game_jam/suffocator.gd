@@ -6,6 +6,9 @@ extends CharacterBody2D
 @export var damage_amount: int = 10 
 @export var jump_force: float = -300.0
 @export var safe_drop_distance: float = 150.0 
+@export var attack_rate = 1
+
+var is_attacking = false
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
@@ -83,9 +86,13 @@ func _physics_process(delta):
 	for i in get_slide_collision_count():
 		var collision = get_slide_collision(i)
 		var collider = collision.get_collider()
-		if collider is Player:
+		if collider is Player and not is_attacking:
+			is_attacking = true
 			var healthbar: HealthBar = collider.get_node("CanvasLayer/Healthbar")
 			healthbar.take_damage(damage_amount)
+			
+			await get_tree().create_timer(attack_rate).timeout
+			is_attacking = false
 
 # --- Damage & Death Functions --- and gabagool
 

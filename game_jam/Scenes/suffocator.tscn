@@ -6,8 +6,9 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_spvos"]
 size = Vector2(13, 15)
 
-[node name="Suffocator" type="CharacterBody2D" unique_id=2137850836]
+[node name="Suffocator" type="CharacterBody2D" unique_id=2137850836 groups=["Enemy"]]
 script = ExtResource("1_76dc4")
+health = 4
 
 [node name="Breath Timer" type="Timer" parent="." unique_id=1531119063]
 one_shot = true
