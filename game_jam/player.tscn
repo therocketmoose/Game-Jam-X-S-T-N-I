@@ -175,3 +175,5 @@ offset_right = 32.0
 offset_bottom = -7.0
 grow_horizontal = 2
 grow_vertical = 0
+
+[connection signal="die" from="CanvasLayer/Healthbar" to="." method="_on_healthbar_die"]
