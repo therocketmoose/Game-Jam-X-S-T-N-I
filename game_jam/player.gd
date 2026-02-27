@@ -12,7 +12,7 @@ var is_dead := false
 
 # Movement Constants
 var speed = 200
-var jump_force = -350 # Slightly buffed for better feel
+var jump_force = -300 # Slightly buffed for better feel
 var gravity = 980     # Standard Godot gravity
 var roll_speed = 600
 var roll_decel = 800
