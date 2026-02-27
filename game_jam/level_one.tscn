@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://co6wd8sxyrwbj" path="res://Art/Tile Sets/wasteland_1.png" id="1_ojold"]
 [ext_resource type="PackedScene" uid="uid://bqomigsnclr4u" path="res://platform.tscn" id="2_bo08i"]
 [ext_resource type="PackedScene" uid="uid://coguswmimkhxy" path="res://player.tscn" id="3_foyw7"]
+[ext_resource type="PackedScene" uid="uid://k1utc1opch0t" path="res://Scenes/suffocator.tscn" id="4_eck3n"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bo08i"]
 texture = ExtResource("1_ojold")
@@ -93,3 +94,6 @@ autoplay = &"move"
 [node name="player" parent="." unique_id=1920163338 instance=ExtResource("3_foyw7")]
 
 [node name="Camera2D" type="Camera2D" parent="player" unique_id=98599183]
+
+[node name="Suffocator" parent="." unique_id=2137850836 instance=ExtResource("4_eck3n")]
+position = Vector2(143, 7)

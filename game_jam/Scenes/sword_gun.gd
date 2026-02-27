@@ -1,8 +1,9 @@
-class_name SwordGun
 extends Node2D
 
 @onready var animation: AnimatedSprite2D = $AnimatedSprite2D
+@onready var hitbox: Area2D = $Hitbox 
 
+<<<<<<< Updated upstream
 @export var offset: Vector2 = Vector2(-30, -30) # Idle position relative to player
 @export var lunge_distance: float = 60.0       # How far it stabs out
 @export var attack_speed: float = 0.1          # Fast snap out
@@ -27,11 +28,36 @@ func _process(delta: float) -> void:
 		attack(idle_target_pos)
 
 func attack(start_pos: Vector2) -> void:
+=======
+@export var offset: Vector2 = Vector2(-40, -40) 
+@export var lunge_distance: float = 60.0      
+@export var attack_speed: float = 0.12         
+@export var damage_s: int = 20 
+
+var is_attacking: bool = false
+
+func _ready():
+	hitbox.monitoring = false
+
+func _process(delta: float) -> void:
+	if not is_attacking:
+		var target_pos = get_parent().global_position + offset
+		global_position = global_position.lerp(target_pos, 15 * delta)
+		
+		var mouse_pos = get_global_mouse_position()
+		rotation = lerp_angle(rotation, (mouse_pos - global_position).angle(), 15 * delta)
+
+	if Input.is_action_just_pressed("left_click"): 
+		attack()
+
+func attack() -> void:
+>>>>>>> Stashed changes
 	if is_attacking: return
 	is_attacking = true
-	
+	hitbox.monitoring = true
 	animation.play("attack")
 	
+<<<<<<< Updated upstream
 	# Calculate direction toward mouse AT THE MOMENT of clicking
 	var dir_to_mouse = (get_global_mouse_position() - global_position).normalized()
 	rotation = dir_to_mouse.angle() # Snap rotation to the strike direction
@@ -57,3 +83,18 @@ func attack(start_pos: Vector2) -> void:
 	
 	tween.tween_callback(func(): is_attacking = false)
 	
+=======
+	var mouse_dir = (get_global_mouse_position() - global_position).normalized()
+	var attack_target = global_position + (mouse_dir * lunge_distance)
+	
+	var tween = create_tween().set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
+	tween.tween_property(self, "global_position", attack_target, attack_speed)
+	tween.tween_callback(func(): 
+		is_attacking = false
+		hitbox.monitoring = false
+	)
+
+func _on_hitbox_body_entered(body):
+	if is_attacking and body.has_method("take_damage") and not body.name.to_lower() == "player":
+		body.take_damage(damage_s)
+>>>>>>> Stashed changes
