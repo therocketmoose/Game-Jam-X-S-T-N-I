@@ -1,20 +1,20 @@
 class_name Player
 extends CharacterBody2D
 
-const speed = 200.0
-const jump_force = -300.0
-const roll_speed = 500.0  # Reduced from 9000 (which is teleport-speed)
-
-const roll_decel = 500.0 # How fast the roll slows down
-
-var gravity = 800
-
 @onready var animation: AnimatedSprite2D = $animation
 @onready var healthbar: HealthBar = $CanvasLayer/Healthbar
 
 var is_rolling := false
 
+var is_dead := false
+
 @export var health: int
+
+var speed = 200
+var jump_force = -300
+var gravity = 800
+var roll_speed = 300
+var roll_decel = 300
 
 func _ready():
 	healthbar.init_health(health)
@@ -32,22 +32,23 @@ func _physics_process(delta: float) -> void:
 			animation.play("roll") # Make sure you have a "roll" animation!
 
 	# 3. Movement Logic
-	if is_rolling:
-		# Decelerate the roll until it hits normal speed
-		velocity.x = move_toward(velocity.x, 0, roll_decel * delta)
-		
-		# End roll when slow enough
-		if abs(velocity.x) <= speed:
-			is_rolling = false
-	else:
-		# Standard Movement
-		if direction:
-			velocity.x = direction * speed
-			animation.flip_h = direction < 0
-			animation.play("walk")
+	if not is_dead:
+		if is_rolling:
+			# Decelerate the roll until it hits normal speed
+			velocity.x = move_toward(velocity.x, 0, roll_decel * delta)
+			
+			# End roll when slow enough
+			if abs(velocity.x) <= speed:
+				is_rolling = false
 		else:
-			velocity.x = move_toward(velocity.x, 0, speed)
-			animation.play("idle")
+			# Standard Movement
+			if direction:
+				velocity.x = direction * speed
+				animation.flip_h = direction < 0
+				animation.play("walk")
+			else:
+				velocity.x = move_toward(velocity.x, 0, speed)
+				animation.play("idle")
 	
 	if Input.is_action_just_pressed("jump") and is_on_floor() and not is_rolling:
 		velocity.y = jump_force
@@ -55,5 +56,7 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 func _on_healthbar_die() -> void:
+	is_dead = true
 	animation.play("die")
+	await animation.animation_finished
 	self.queue_free()

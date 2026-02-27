@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="UpgradeResources" format=3 uid="uid://b54r33rpa3rjs"]
+
+[ext_resource type="Script" uid="uid://bq0pp17jb0bup" path="res://Upgrades/Main/upgrade_resources.gd" id="1_yvnwn"]
+
+[resource]
+script = ExtResource("1_yvnwn")
+selected_type = "damage_shield"
+multiplier = 1.5
+metadata/_custom_type_script = "uid://bq0pp17jb0bup"
