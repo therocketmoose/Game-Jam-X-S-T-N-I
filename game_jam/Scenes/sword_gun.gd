@@ -7,7 +7,7 @@ extends Node2D
 @export var damage: int = 1
 @export var offset: Vector2 = Vector2(-30, -30)
 @export var lunge_distance: float = 60.0        
-@export var attack_speed: float = 0.1           
+@export var attack_speed: float = 0.7           
 @export var return_speed: float = 0.2           
 @export var idle_rotation: float = 0      
 
