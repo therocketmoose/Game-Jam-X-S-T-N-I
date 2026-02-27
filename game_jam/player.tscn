@@ -226,17 +226,15 @@ script = ExtResource("1_4flbx")
 
 [node name="animation" type="AnimatedSprite2D" parent="." unique_id=188234750]
 sprite_frames = SubResource("SpriteFrames_n7ghd")
-animation = &"fall"
+animation = &"roll"
 
 [node name="Interactor" parent="." unique_id=791728671 instance=ExtResource("4_sweqy")]
-visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Interactor" unique_id=1297824820]
 shape = SubResource("CircleShape2D_hqtel")
 debug_color = Color(0.48492563, 0.5863838, 0, 0.41960785)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=600691164]
-visible = false
 shape = SubResource("RectangleShape2D_onrkg")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1117403335]
