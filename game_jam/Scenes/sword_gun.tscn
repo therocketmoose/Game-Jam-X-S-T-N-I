@@ -1,101 +1,15 @@
 [gd_scene format=3 uid="uid://c6rra004grdwx"]
 
 [ext_resource type="Script" uid="uid://bbv2qkbjt82dy" path="res://Scenes/sword_gun.gd" id="1_cq8v8"]
-[ext_resource type="Texture2D" uid="uid://cl0x6fxm6dput" path="res://Art/SpriteSheets/sword_sheet.png" id="2_w1o86"]
 [ext_resource type="Script" uid="uid://c8gj4ikanctp7" path="res://Components/Hit Box/hitbox_component.gd" id="3_w1o86"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_r7qn1"]
-atlas = ExtResource("2_w1o86")
-region = Rect2(0, 0, 16, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_3dnxe"]
-atlas = ExtResource("2_w1o86")
-region = Rect2(16, 0, 16, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_5jjmi"]
-atlas = ExtResource("2_w1o86")
-region = Rect2(32, 0, 16, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_wqk8s"]
-atlas = ExtResource("2_w1o86")
-region = Rect2(48, 0, 16, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_g1gks"]
-atlas = ExtResource("2_w1o86")
-region = Rect2(0, 32, 16, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_0njb7"]
-atlas = ExtResource("2_w1o86")
-region = Rect2(16, 32, 16, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_orpeu"]
-atlas = ExtResource("2_w1o86")
-region = Rect2(32, 32, 16, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_llrlc"]
-atlas = ExtResource("2_w1o86")
-region = Rect2(48, 32, 16, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_vqk77"]
-atlas = ExtResource("2_w1o86")
-region = Rect2(0, 64, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_57uqc"]
-atlas = ExtResource("2_w1o86")
-region = Rect2(32, 64, 32, 32)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_8aefw"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_r7qn1")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_3dnxe")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_5jjmi")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_wqk8s")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_g1gks")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_0njb7")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_orpeu")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_llrlc")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_vqk77")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_57uqc")
-}],
-"loop": false,
-"name": &"attack",
-"speed": 20.0
-}]
+[ext_resource type="AudioStream" uid="uid://dvhyp8bypd1ag" path="res://Art/dragon-studio-sword-slice-393847.mp3" id="4_r7qn1"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_r7qn1"]
 radius = 4.0
 
 [node name="SwordGun" type="Node2D" unique_id=1686054373]
 script = ExtResource("1_cq8v8")
-offset = null
-lunge_distance = null
 attack_speed = 0.6
-return_speed = null
-idle_rotation = null
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1981570655]
-sprite_frames = SubResource("SpriteFrames_8aefw")
-animation = &"attack"
 
 [node name="HitBox" type="Area2D" parent="." unique_id=1471939979]
 script = ExtResource("3_w1o86")
@@ -106,3 +20,7 @@ metadata/_custom_type_script = "uid://c8gj4ikanctp7"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox" unique_id=645814783]
 position = Vector2(0, -9)
 shape = SubResource("CapsuleShape2D_r7qn1")
+
+[node name="Sword sound" type="AudioStreamPlayer2D" parent="HitBox" unique_id=1100694802]
+stream = ExtResource("4_r7qn1")
+bus = &"Sound Effects"
