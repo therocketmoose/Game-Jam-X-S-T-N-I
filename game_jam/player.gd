@@ -4,6 +4,7 @@ const speed = 300.0
 const jump_force = -400.0
 const roll_speed = 900.0  # Reduced from 9000 (which is teleport-speed)
 const roll_decel = 2000.0 # How fast the roll slows down
+var damage_modifier := 1.0
 
 @onready var animation: AnimatedSprite2D = $animation
 

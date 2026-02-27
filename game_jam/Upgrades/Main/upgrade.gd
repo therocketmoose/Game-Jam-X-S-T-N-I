@@ -10,15 +10,19 @@ func _process(delta: float) -> void:
 	pass
 
 func _on_interacted_with() -> void:
-	if upgrade_resources.type == "speed":
-		player.speed *= upgrade_resources.multiplier
-		print(player.speed)
-	if upgrade_resources.type == "health":
-		var healthComp = return_child_of_type(player, HealthComponent)
-		healthComp.max_health *= upgrade_resources.multiplier
-		healthComp.health = healthComp.max_health
-		print(healthComp.max_health)
-	self.queue_free()
+	if upgrade_resources.type == "attack_speed":
+		player.attack_speed *= upgrade_resources.multiplier
+	elif upgrade_resources.type == "sword_damage":
+		player.sword_damage *= upgrade_resources.multiplier
+	elif upgrade_resources.type == "gun_damage":
+		player.gun_damage *= upgrade_resources.multiplier
+	elif upgrade_resources.type == "move_speed":
+		player.move_speed *= upgrade_resources.multiplier
+	elif upgrade_resources.type == "damage_shield":
+		player.damage_modifier = 0.5
+		await get_tree().create_timer(10.0).timeout
+		player.damage_modifier = 1.0
+	queue_free()
 	
 func return_child_of_type(parent: Node, type_to_find):
 	for child in parent.get_children():

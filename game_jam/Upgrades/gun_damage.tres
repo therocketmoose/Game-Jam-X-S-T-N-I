@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="UpgradeResources" format=3 uid="uid://w052dycxyfqu"]
+
+[ext_resource type="Script" uid="uid://bq0pp17jb0bup" path="res://Upgrades/Main/upgrade_resources.gd" id="1_yu1sv"]
+
+[resource]
+script = ExtResource("1_yu1sv")
+selected_type = "gun_damage"
+multiplier = 1.5
+metadata/_custom_type_script = "uid://bq0pp17jb0bup"
