@@ -103,4 +103,4 @@ func take_damage(amount: int):
 	# Wait for 1 second, then remove invincibility
 	await get_tree().create_timer(1.0).timeout
 	is_invincible = false
-	animation.modulate.a = 1.0 # Ensure opacity is fully reset
+	animation.modulate.a = 1.0 # Ensure opacity is fully reset	
