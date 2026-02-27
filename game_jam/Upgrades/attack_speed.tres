@@ -1,7 +1,9 @@
-[gd_resource type="Resource" script_class="UpgradeResources" format=3 uid="uid://brt5g5q3kl50r"]
+[gd_resource type="Resource" script_class="UpgradeResources" format=3 uid="uid://djl5ejocicxlm"]
 
 [ext_resource type="Script" uid="uid://bq0pp17jb0bup" path="res://Upgrades/Main/upgrade_resources.gd" id="1_u0rx1"]
 
 [resource]
 script = ExtResource("1_u0rx1")
+selected_type = "attack_speed"
+multiplier = 1.15
 metadata/_custom_type_script = "uid://bq0pp17jb0bup"
