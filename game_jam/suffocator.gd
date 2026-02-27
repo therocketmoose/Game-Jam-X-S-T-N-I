@@ -6,10 +6,9 @@ extends CharacterBody2D
 @export var damage_amount: int = 5  # Lowered from 10 to 5
 @export var jump_force: float = -300.0
 @export var safe_drop_distance: float = 150.0 
-@export var attack_rate = 1
+@export var attack_rate: float = 1.0
 
 var is_attacking = false
-
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 @onready var sprite_2d: Sprite2D = $Sprite2D
@@ -29,9 +28,12 @@ func _ready():
 	player = get_tree().get_first_node_in_group("player") as Player
 	burst_timer.start() 
 	
+	# --- Setup Health Bar ---
 	if s_health_bar:
 		s_health_bar.max_value = health
 		s_health_bar.value = health
+		# Ensure the health bar doesn't rotate with the parent if you use rotation
+		s_health_bar.top_level = false 
 	
 	if ledge_check:
 		ledge_check.target_position.y = safe_drop_distance
@@ -64,16 +66,24 @@ func _physics_process(delta):
 		State.BREATHING:
 			velocity.x = move_toward(velocity.x, 0, move_speed) 
 
+	# --- Handle Flipping ---
 	if velocity.x != 0:
 		facing_direction = -1 if velocity.x < 0 else 1
 		sprite_2d.flip_h = velocity.x < 0
 		wall_check.target_position.x = abs(wall_check.target_position.x) * facing_direction
 		ledge_check.position.x = abs(ledge_check.position.x) * facing_direction
 		
-		# Keep HealthBar from flipping
+		# Better HealthBar Flipping Logic
 		if s_health_bar:
-			s_health_bar.scale.x = abs(s_health_bar.scale.x) * (1 if not sprite_2d.flip_h else -1)
+			# This keeps the bar pointing the right way even when the parent flips
+			s_health_bar.scale.x = abs(s_health_bar.scale.x)
+			if sprite_2d.flip_h:
+				# Adjust position if it's not centered, or keep it simple:
+				s_health_bar.scale.x = -abs(s_health_bar.scale.x)
+			else:
+				s_health_bar.scale.x = abs(s_health_bar.scale.x)
 	
+	# --- Visual States ---
 	if current_state == State.BURST:
 		sprite_2d.modulate = Color.RED 
 	elif current_state == State.BREATHING:
@@ -88,18 +98,25 @@ func _physics_process(delta):
 		var collision = get_slide_collision(i)
 		var collider = collision.get_collider()
 		if collider is Player and not is_attacking:
-			is_attacking = true
-			var healthbar: HealthBar = collider.get_node("CanvasLayer/Healthbar")
-			healthbar.take_damage(damage_amount)
-			
-			await get_tree().create_timer(attack_rate).timeout
-			is_attacking = false
+			attack_player(collider)
+
+func attack_player(target_player):
+	is_attacking = true
+	var healthbar = target_player.get_node_or_null("CanvasLayer/Healthbar")
+	if healthbar:
+		healthbar.take_damage(damage_amount)
+	
+	await get_tree().create_timer(attack_rate).timeout
+	is_attacking = false
 
 func take_damage(amount: int):
 	health -= amount
+	
+	# Update HealthBar UI
 	if s_health_bar:
 		s_health_bar.value = health
 		
+	# Hit Flash Effect
 	var tween = create_tween()
 	tween.tween_property(sprite_2d, "modulate", Color.RED, 0.1)
 	tween.tween_property(sprite_2d, "modulate", Color.WHITE, 0.1)

@@ -1,7 +1,7 @@
 class_name SwordGun
 extends Node2D
 
-@onready var hit_box: HitBox = $HitBox
+@onready var hit_box: Area2D = $HitBox
 @onready var animation: AnimatedSprite2D = $AnimatedSprite2D
 
 @export var offset: Vector2 = Vector2(-30, -30) 
@@ -13,15 +13,17 @@ extends Node2D
 var is_attacking: bool = false
 
 func _ready() -> void:
-	# Ensure the hitbox starts disabled and is aligned to the parent
 	toggle_hitbox(false)
-	hit_box.position = Vector2.ZERO # Keep it centered on the sword handle
+	if hit_box:
+		hit_box.position = Vector2.ZERO
+		# Ensure the signal is connected so it can damage the Suffocator
+		if not hit_box.body_entered.is_connected(_on_hit_box_body_entered):
+			hit_box.body_entered.connect(_on_hit_box_body_entered)
 
 func _process(delta: float) -> void:
 	var idle_target_pos = get_parent().global_position + offset
 	
 	if not is_attacking:
-		# Smoothly move AND rotate at the same time
 		global_position = global_position.lerp(idle_target_pos, 15 * delta)
 		rotation = lerp_angle(rotation, deg_to_rad(idle_rotation), 10 * delta)
 
@@ -36,43 +38,37 @@ func attack() -> void:
 	toggle_hitbox(true)
 	animation.play("attack")
 
-	# Target direction at the start of the swing
 	var dir_to_mouse = (get_global_mouse_position() - global_position).normalized()
 	var attack_angle = dir_to_mouse.angle()
 	
-	var tween = create_tween().set_parallel(true) # Set to TRUE so position and rotation happen together
+	var tween = create_tween().set_parallel(true)
 
-	# LUNGE: Both position and rotation move toward the target
-	tween.tween_method(
-		func(progress: float): 
-			var current_player_back_pos = get_parent().global_position + offset)
-			global_position = current_player_back_pos + (dir_to_mouse * lunge_distance * progress)
-		, 0.0, 1.0, attack_speed
-	).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
-	
-	# Force rotation to stay locked to the strike direction during lunge
+	# LUNGE
+	tween.tween_method(func(prog): move_sword(prog, dir_to_mouse), 0.0, 1.0, attack_speed).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
 	tween.tween_property(self, "rotation", attack_angle, attack_speed)
 
-	# RETRACT: Move back while slowly starting to look at the idle rotation again
-	var retract_tween = create_tween().set_parallel(true)
-	retract_tween.tween_method(
-		func(progress: float): 
-			var current_player_back_pos = get_parent().global_position + offset
-			global_position = current_player_back_pos + (dir_to_mouse * lunge_distance * (1.0 - progress))
-		, 0.0, 1.0, return_speed
-	).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	# RETRACT
+	var retract_tween = tween.chain().set_parallel(true)
+	retract_tween.tween_method(func(prog): move_sword(1.0 - prog, dir_to_mouse), 0.0, 1.0, return_speed).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	
-	# Cleanup
 	retract_tween.chain().tween_callback(func(): 
 		is_attacking = false
 		toggle_hitbox(false)
 	)
 
+# Helper function to prevent indentation errors inside Tweens
+func move_sword(progress: float, direction: Vector2):
+	var current_player_back_pos = get_parent().global_position + offset
+	global_position = current_player_back_pos + (direction * lunge_distance * progress)
+
 func toggle_hitbox(active: bool) -> void:
-	# set_deferred is essential for collision to prevent "Flush Queries" errors
+	if not hit_box: return
 	hit_box.set_deferred("monitoring", active)
 	hit_box.set_deferred("monitorable", active)
-	# Also disable the shape specifically if you have multiple shapes
 	for child in hit_box.get_children():
 		if child is CollisionShape2D or child is CollisionPolygon2D:
 			child.set_deferred("disabled", !active)
+
+func _on_hit_box_body_entered(body: Node2D):
+	if body.has_method("take_damage") and body != get_parent():
+		body.take_damage(1) # Deals 1 damage to the Suffocator
