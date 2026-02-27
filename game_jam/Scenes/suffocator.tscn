@@ -93,7 +93,7 @@ shape = SubResource("RectangleShape2D_spvos")
 [node name="Sprite2D" type="AnimatedSprite2D" parent="." unique_id=1247373027]
 sprite_frames = SubResource("SpriteFrames_536j0")
 animation = &"walk"
-frame_progress = 0.74500155
+frame_progress = 0.98503894
 
 [node name="WallCheck" type="RayCast2D" parent="." unique_id=103491449]
 target_position = Vector2(20, 0)
