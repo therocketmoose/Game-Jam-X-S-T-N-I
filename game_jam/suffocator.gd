@@ -84,7 +84,8 @@ func _physics_process(delta):
 		var collision = get_slide_collision(i)
 		var collider = collision.get_collider()
 		if collider is Player:
-			collider.take_damage(damage_amount)
+			var healthbar: HealthBar = collider.get_node("CanvasLayer/Healthbar")
+			healthbar.take_damage(damage_amount)
 
 # --- Damage & Death Functions ---
 
