@@ -2,16 +2,13 @@
 
 [ext_resource type="Script" uid="uid://gegydegiev2r" path="res://suffocator.gd" id="1_76dc4"]
 [ext_resource type="Texture2D" uid="uid://tne2q83lc33h" path="res://Art/SpriteSheets/Suffocater.png" id="2_onvid"]
-[ext_resource type="Script" uid="uid://byfgryr7k6k6l" path="res://Scenes/s_health_bar.gd" id="3_spvos"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_spvos"]
 size = Vector2(13, 15)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4pb2c"]
-bg_color = Color(0.93227726, 0.1340611, 0.12518361, 1)
-
-[node name="Suffocator" type="CharacterBody2D" unique_id=2137850836]
+[node name="Suffocator" type="CharacterBody2D" unique_id=2137850836 groups=["Enemy"]]
 script = ExtResource("1_76dc4")
+health = 4
 
 [node name="Breath Timer" type="Timer" parent="." unique_id=1531119063]
 one_shot = true
@@ -33,17 +30,6 @@ target_position = Vector2(20, 0)
 [node name="LedgeCheck" type="RayCast2D" parent="." unique_id=1242750086]
 position = Vector2(15, 0)
 target_position = Vector2(0, 20)
-
-[node name="SHealthBar" type="ProgressBar" parent="." unique_id=1291388153]
-offset_left = 6.0
-offset_top = -13.0
-offset_right = 20.0
-offset_bottom = -9.0
-theme_override_styles/fill = SubResource("StyleBoxFlat_4pb2c")
-max_value = 3.0
-value = 3.0
-show_percentage = false
-script = ExtResource("3_spvos")
 
 [connection signal="timeout" from="Breath Timer" to="." method="_on_breath_timer_timeout"]
 [connection signal="timeout" from="Burst Timer" to="." method="_on_burst_timer_timeout"]
