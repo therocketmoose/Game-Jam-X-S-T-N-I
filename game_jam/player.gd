@@ -14,8 +14,8 @@ var is_dead := false
 var speed = 200
 var jump_force = -350 # Slightly buffed for better feel
 var gravity = 980     # Standard Godot gravity
-var roll_speed = 600
-var roll_decel = 800
+var roll_speed = 400
+var roll_decel = 400
 
 func _ready():
 	healthbar.init_health(health)
